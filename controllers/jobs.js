@@ -15,4 +15,15 @@ try {
 }
 });
 
+//Get
+router.get("/", verifyToken, async (req, res) => {
+  try {
+    const jobs = await Job.find({})
+      .sort({ dateApplied: "desc" });
+    res.status(200).json(jobs)
+  } catch (err) {
+    res.status(500).json({err: err.message})
+  }
+})
+
 module.exports = router;
